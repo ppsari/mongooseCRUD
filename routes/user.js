@@ -1,7 +1,6 @@
 const express = require('express')
 let router = express.Router()
 
-let User = require('../models/user')
 let userCtrl = require('../controllers/userCtrl')
 
 router.get('/', userCtrl.getAll)

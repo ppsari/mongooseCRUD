@@ -1,6 +1,6 @@
 let Quote = require('../models/quote')
 let User = require('../models/user')
-let _user = '5a93d279459c4058ed5b16d6'
+let _user = '5a93d84ceca69263cf2951df'
 
 const create = function(req, res) {
 

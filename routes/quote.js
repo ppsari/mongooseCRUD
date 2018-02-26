@@ -1,7 +1,6 @@
 const express = require('express')
 let router = express.Router()
 
-let Quote = require('../models/quote')
 let quoteCtrl = require('../controllers/quoteCtrl')
 
 router.get('/', quoteCtrl.getAll)

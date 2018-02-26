@@ -13,8 +13,10 @@ app.use(bodyParser.urlencoded({extended:true}))
 
 const quote = require('./routes/quote')
 const user = require('./routes/user')
+const index = require('./routes/index')
 app.use('/quotes', quote)
 app.use('/users', user)
+app.use('/', index)
 
 
 

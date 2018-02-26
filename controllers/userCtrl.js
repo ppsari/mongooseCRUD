@@ -1,8 +1,13 @@
 let User = require('../models/user')
-
+let auth = require('../helpers/auth')
 
 const create = function(req, res) {
-  let user = new User(req.body)
+  let user_dt = {
+    username: req.body.username,
+    password: req.body.password
+  }
+
+  let user = new User(user_dt)
   user.save(function(err, save_user) {
     if (err) {
       res.status(500)
@@ -11,6 +16,13 @@ const create = function(req, res) {
       res.status(200)
       res.send(save_user)
     }
+  })
+}
+
+const login = function(req, res) {
+  User.findOne({username: req.body.username}, function(err, user) {
+    let is_login = auth.checkPassword(req.body.password, user.password)
+    res.send(is_login)
   })
 }
 
@@ -92,5 +104,6 @@ module.exports = {
   update,
   remove,
   getOne,
-  getAll
+  getAll,
+  login
 }
