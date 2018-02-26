@@ -3,8 +3,8 @@ const Schema = mongoose.Schema
 
 let userSchema = Schema({
   username: String,
-  password: String
-  // ,quote: [{type:Schema.Types.ObjectId, ref: 'Quote'}]
+  password: String,
+  quotes: [{type:Schema.Types.ObjectId, ref: 'Quote'}]
 })
 
 const User = mongoose.model('User', userSchema)

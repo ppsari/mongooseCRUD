@@ -22,6 +22,9 @@ const update = function(req, res) {
       res.status(500)
       res.send({err:err})
     } else {
+      user.username = req.body.username || user.username
+      user.password = req.body.password || user.password
+
       user.save(function(err, updt_user) {
         if (err) {
           res.status(500)
