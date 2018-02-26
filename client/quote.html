@@ -1,0 +1,25 @@
+<html>
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+
+    <script>
+      axios.get('http://localhost:3000/quotes')
+      .then(function(result) {
+        let print = []
+        for (let i = 0; i < result.data.length; i++){
+          print.push(`<li>${result.data[i].name + '- ' + result.data[i].quote}</li>`)
+        }
+        document.getElementById('ulQuote').innerHTML = print.join('')
+
+      })
+      .catch(function(err) {
+        console.log(err)
+      })
+    </script>
+  </head>
+  <body>
+
+    <ul id="ulQuote">
+    </ul>
+  </body>
+</html>
