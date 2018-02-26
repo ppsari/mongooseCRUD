@@ -2,22 +2,30 @@ let User = require('../models/user')
 let auth = require('../helpers/auth')
 
 const create = function(req, res) {
-  let user_dt = {
-    username: req.body.username,
-    password: req.body.password,
-    hobby: req.body.hobby
+
+  if (req.body.username === '' || typeof req.body.username === 'undefined') res.send({err: 'Username must be filled'})
+  else if (req.body.password === '' || typeof req.body.password === 'undefined') res.send({err: 'Password must be filled'})
+  else if (req.body.hobby === '' || typeof req.body.hobby === 'undefined') res.send({err: 'Hobby must be filled'})
+  else {
+    let user_dt = {
+      username: req.body.username,
+      password: req.body.password,
+      hobby: req.body.hobby
+    }
+
+    let user = new User(user_dt)
+    user.save(function(err, save_user) {
+      if (err) {
+        res.status(500)
+        res.send({err:err.message})
+      } else {
+        res.status(200)
+        res.send(save_user)
+      }
+    })
   }
 
-  let user = new User(user_dt)
-  user.save(function(err, save_user) {
-    if (err) {
-      res.status(500)
-      res.send({err:err.message})
-    } else {
-      res.status(200)
-      res.send(save_user)
-    }
-  })
+
 }
 
 const login = function(req, res) {
