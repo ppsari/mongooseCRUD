@@ -12,7 +12,9 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended:true}))
 
 const quote = require('./routes/quote')
+const user = require('./routes/user')
 app.use('/quotes', quote)
+app.use('/users', user)
 
 
 

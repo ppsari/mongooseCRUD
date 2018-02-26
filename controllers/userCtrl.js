@@ -1,14 +1,15 @@
-let Quote = require('../models/quote')
+let User = require('../models/user')
+
 
 const create = function(req, res) {
-  let quote = new Quote(req.body)
-  quote.save(function(err, save_quote) {
+  let user = new User(req.body)
+  user.save(function(err, save_user) {
     if (err) {
       res.status(500)
       res.send({err:err})
     } else {
       res.status(200)
-      res.send(save_quote)
+      res.send(save_user)
     }
   })
 }
@@ -16,18 +17,18 @@ const create = function(req, res) {
 const update = function(req, res) {
   let id = req.params.id
 
-  Quote.findById(id, function(err, quote) {
+  User.findById(id, function(err, user) {
     if (err) {
       res.status(500)
       res.send({err:err})
     } else {
-      quote.save(function(err, updt_quote) {
+      user.save(function(err, updt_user) {
         if (err) {
           res.status(500)
           res.send({err:err})
         } else {
           res.status(200)
-          res.send(updt_quote)
+          res.send(updt_user)
         }
       })
     }
@@ -37,18 +38,18 @@ const update = function(req, res) {
 const remove = function(req, res) {
   let id = req.params.id
 
-  Quote.findById(id, function(err, quote) {
+  User.findById(id, function(err, user) {
     if (err) {
       res.status(500)
       res.send({err:err})
     } else {
-      quote.remove(function(err, dlt_quote) {
+      user.remove(function(err, dlt_user) {
         if (err) {
           res.status(500)
           res.send({err:err})
         } else {
           res.status(200)
-          res.send(dlt_quote)
+          res.send(dlt_user)
         }
       })
     }
@@ -58,20 +59,20 @@ const remove = function(req, res) {
 const getOne = function(req, res) {
   let id = req.params.id
 
-  Quote.findById(id, function(err, quote) {
+  User.findById(id, function(err, user) {
     if (err) {
       res.status(500)
       res.send({err:err})
     } else {
       res.status(200)
-      res.send(quote)
+      res.send(user)
     }
   })
 }
 
 const getAll = function(req, res) {
 
-  Quote.find({}, function(err, results){
+  User.find({}, function(err, results){
     if (err) {
       res.status(500)
       res.send({err:err})

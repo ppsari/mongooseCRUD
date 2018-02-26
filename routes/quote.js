@@ -8,6 +8,6 @@ router.get('/', quoteCtrl.getAll)
 router.get('/:id', quoteCtrl.getOne)
 router.post('/', quoteCtrl.create)
 router.put('/:id', quoteCtrl.update )
-router.delete('/:id', quoteCtrl.delete)
+router.delete('/:id', quoteCtrl.remove)
 
 module.exports = router
