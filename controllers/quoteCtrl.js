@@ -14,7 +14,7 @@ const create = function(req, res) {
     quote.save(function(err, save_quote) {
       if (err) {
         res.status(500)
-        res.send({err:err})
+        res.send({err: err.message})
       } else {
 
         User.findById(_user, function(err, user) {

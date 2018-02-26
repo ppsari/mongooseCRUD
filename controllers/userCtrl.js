@@ -4,14 +4,15 @@ let auth = require('../helpers/auth')
 const create = function(req, res) {
   let user_dt = {
     username: req.body.username,
-    password: req.body.password
+    password: req.body.password,
+    hobby: req.body.hobby
   }
 
   let user = new User(user_dt)
   user.save(function(err, save_user) {
     if (err) {
       res.status(500)
-      res.send({err:err})
+      res.send({err:err.message})
     } else {
       res.status(200)
       res.send(save_user)
@@ -21,7 +22,6 @@ const create = function(req, res) {
 
 const login = function(req, res) {
   User.findOne({username: req.body.username}, function(err, user) {
-    console.log(err)
     if (err) res.send({err: 'Invalid username'})
     else {
       let is_login = auth.checkPassword(req.body.password, user.password)
