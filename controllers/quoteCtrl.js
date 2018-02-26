@@ -1,36 +1,42 @@
 let Quote = require('../models/quote')
 let User = require('../models/user')
-let _user = '5a93d84ceca69263cf2951df'
+let auth = require('../helpers/auth')
 
 const create = function(req, res) {
+  let _user = auth.getUserDetail(req.headers.token)
+  if (_user) {
+    let quote = new Quote({
+      name: req.body.name,
+      quote: req.body.quote,
+      _user: _user
+    })
 
-  let quote = new Quote({
-    name: req.body.name,
-    quote: req.body.quote,
-    _user: _user
-  })
+    quote.save(function(err, save_quote) {
+      if (err) {
+        res.status(500)
+        res.send({err:err})
+      } else {
 
-  quote.save(function(err, save_quote) {
-    if (err) {
-      res.status(500)
-      res.send({err:err})
-    } else {
-
-      User.findById(_user, function(err, user) {
-        if (err) {
-          res.status(500)
-          res.send({err: 'User not found'})
-        } else {
-          user.quotes.push(save_quote._id)
-          user.save(function(err, saved_user) {
-            if (err) res.send({err: 'Failed to insert to user'})
+        User.findById(_user, function(err, user) {
+          if (err) {
             res.status(500)
-            res.send(save_quote)
-          })
-        }
-      })
-    }
-  })
+            res.send({err: 'User not found'})
+          } else {
+            user.quotes.push(save_quote._id)
+            user.save(function(err, saved_user) {
+              if (err) res.send({err: 'Failed to insert to user'})
+              res.status(500)
+              res.send(save_quote)
+            })
+          }
+        })
+      }
+    })
+  } else {
+    res.send({err: 'You must login!'})
+  }
+
+
 }
 
 const update = function(req, res) {

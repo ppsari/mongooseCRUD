@@ -21,8 +21,20 @@ const create = function(req, res) {
 
 const login = function(req, res) {
   User.findOne({username: req.body.username}, function(err, user) {
-    let is_login = auth.checkPassword(req.body.password, user.password)
-    res.send(is_login)
+    console.log(err)
+    if (err) res.send({err: 'Invalid username'})
+    else {
+      let is_login = auth.checkPassword(req.body.password, user.password)
+      if (is_login) {
+        let user_dt = {
+          username: user.username,
+          _id: user._id
+        }
+        res.send({token: auth.createToken(user_dt)})
+      } else {
+        res.send({err: 'invalid login'})
+      }
+    }
   })
 }
 
