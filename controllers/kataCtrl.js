@@ -4,6 +4,7 @@
 */
 
 let Kata = require('../models/kata')
+// let user_id = '5a96962e93c7b15212a6fd3d'
 
 const getAll = function(req, res){
   Kata.find({}, function(err, katas) {
